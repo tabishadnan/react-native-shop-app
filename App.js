@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import ShopReducer from './store/ShopReducer';
+import ShopNavigator from './navigation/ShopNavigator';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const rootReducer = combineReducers({
+  shoprducer: ShopReducer
 });
+
+const Store = createStore(rootReducer);
+
+
+const App = () => {
+  return (
+    <Provider store={Store}>
+      <ShopNavigator />
+    </Provider>
+  );
+};
+
+export default App;
