@@ -3,9 +3,9 @@ import { View, Text, Image, StyleSheet, Button } from 'react-native';
 
 const ProductDetailScreen = ({ navigation, route }) => {
 
-    const product = route.params.item;
+    const product = route.params;
 
-    const img = { uri: product.img }
+    const img = { uri: product.img };
 
     React.useLayoutEffect(() => {
         navigation.setOptions({

@@ -6,15 +6,13 @@ import { PRODUCTS } from '../../models/ProductData';
 
 const ProductOverviewScreen = ({navigation}) => {
 
-    const counter = useSelector(state => state.shoprducer.counter);
-
     return ( 
         <FlatList 
             data={PRODUCTS}
-            renderItem={(products) => <GridProductItemComponent
-            product={products}
-            navigation={navigation}
-            />}
+            renderItem={({ item }) => (<GridProductItemComponent
+                product={item}
+                navigation={navigation}
+                />)}
         />
      );
 };

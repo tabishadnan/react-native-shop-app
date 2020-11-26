@@ -9,14 +9,14 @@ const GridProductItemComponent = ({ navigation, product }) => {
                 <Image
                     style={styles.productImg}
                     source={{
-                        uri: `${product.item.img}` 
+                        uri: `${product.img}` 
                     }}
                 />
                 <Text style={{ fontSize: 18, textAlign: 'center', marginTop: 10, }}>
-                    {product.item.title}
+                    {product.title}
                 </Text>
                 <Text style={{ color: '#9e9e9e', textAlign: 'center', marginBottom: 10, }}>
-                    ${product.item.price}
+                    ${product.price}
                 </Text>
                 <View style={styles.btncontainer}>
                     <Button title="VIEW DETAILS" color="#d12c5c" onPress={() => navigation.navigate("Product Detail", product)} />
