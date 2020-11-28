@@ -1,13 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 
-const CartScreen = () => {
+const CartScreen = ({ navigation }) => {
+
+    const cartItemInfo = useSelector(state => state.cartreducer);
 
     return (
         <View style={styles.container}>
-            <Text style={{ fontSize: 18, textAlign: 'center', marginVertical: 20, }}>
-            Cart Screen !!!
-            </Text>
+            {cartItemInfo.items.length > 0 ?
+                <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
+                    <View style={{ flexDirection: 'row',}}>
+                        <Text style={{ fontWeight: 'bold' }}>Total: </Text>
+                        <Text style={{ color: "#d12c5c", fontWeight: 'bold' }}>${cartItemInfo.totalAmount}</Text>
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={() => navigation.navigate("All Products")}>
+                            <Text style={{ color: "#ff9800", fontWeight: 'bold' }}>Order Now</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                :
+                <Text>There are no more items in your cart</Text>}
         </View>
     );
 };
@@ -18,6 +32,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         margin: 20,
+        padding: 20,
         borderColor: '#9e9e9e54',
         borderWidth: 2,
         borderRadius: 10,

@@ -4,9 +4,11 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import ShopReducer from './store/ShopReducer';
 import ShopNavigator from './navigation/ShopNavigator';
+import CartReducer from './store/CartReducer';
 
 const rootReducer = combineReducers({
-  shoprducer: ShopReducer
+  shoprducer: ShopReducer,
+  cartreducer: CartReducer,
 });
 
 const Store = createStore(rootReducer);

@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 const GridProductItemComponent = ({ navigation, product }) => {
+
+    const dispatch = useDispatch();
 
     return (
         <TouchableOpacity onPress={() => navigation.navigate("Product Detail", product)}>
@@ -20,7 +23,7 @@ const GridProductItemComponent = ({ navigation, product }) => {
                 </Text>
                 <View style={styles.btncontainer}>
                     <Button title="VIEW DETAILS" color="#d12c5c" onPress={() => navigation.navigate("Product Detail", product)} />
-                    <Button title="TO CART" color="#d12c5c" />
+                    <Button title="TO CART" color="#d12c5c" onPress={() => dispatch({type:"ADD_TO_CART", product})} />
                 </View>
             </View>
         </TouchableOpacity>
