@@ -1,6 +1,7 @@
 const initialState = {
-    items : [],
-    totalAmount : 0,
+    items: [],
+    totalAmount: 0,
+    quantity: 0,
 };
 
 const CartReducer = (state = initialState, action) => {
@@ -9,13 +10,20 @@ const CartReducer = (state = initialState, action) => {
             const price = action.product.price;
             return {
                 ...state,
-                items : state.items.concat(action.product.price),
-                totalAmount : state.totalAmount + price,
+                items: state.items.concat(action.product),
+                totalAmount: state.totalAmount + price,
             };
-            
+
+        case "DELETE_CART_ITEM":
+            const newArr = state.items.filter(item => item.id.indexOf(action.id));
+            return {
+                ...state,
+                items: state.items = newArr,
+            };
+
         default:
             return state;
     }
 }
- 
+
 export default CartReducer; 
