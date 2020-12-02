@@ -1,16 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, } from 'react-native';
-import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
 
 const GridCartItemComponent = ({ navigation, cartItem, cId}) => {
 
-    console.log(cId);
-
-    const dispatch = useDispatch();
+    const orderId = useSelector(state => state.orderreducer.orderId = cId);
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} onLoad>
             <View style={{ flexDirection: 'row', }}>
                 <Text style={{ fontWeight: 'bold', marginRight:5, }}>{cartItem[cId].qty}</Text>
                 <Text style={{ fontWeight: 'bold' }}>{cartItem[cId].title}</Text>

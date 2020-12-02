@@ -1,56 +1,54 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import GridOrderItemComponent from '../../components/GridOrderItemComponent';
 
 const OrdersScreen = ({ navigation, route }) => {
 
-    const order = useSelector(state => state.orderreducer.items);
+    const order = useSelector(state => state.orderreducer.orders);
 
-    console.log("hello order",order);
-
-    const totalAmount = route.params.totalAmount;
+    const amount = useSelector(state => state.orderreducer.amount);
 
     const orderDate = route.params.orderDate;
 
-    // const orderDate = route.params.orderDate;
+    const isShowDetail = useSelector(state => state.orderreducer.isShowDetail);
 
-    // console.log(route);
+    const dispatch = useDispatch();
 
     return (
         <View>
             {/* Show Total Amount */}
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ color: "#d12c5c", fontWeight: 'bold' }}>${totalAmount}</Text>
+                    <Text style={{ color: "#d12c5c", fontWeight: 'bold' }}>${amount}</Text>
                     <Text>{orderDate}</Text>
                 </View>
             </View>
 
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch({type:"IS_SHOW_DETAIL"})}>
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <Text style={{
                             color: "#FFF", fontWeight: 'bold', backgroundColor: "#d12c5c",
                             paddingHorizontal: 20,
                             paddingVertical: 10,
                             borderRadius: 10,
-                        }}>SHOW DETAILS</Text>
+                        }}>{!isShowDetail ? "SHOW DETAILS" : "HIDE DETAILS"}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
 
             {/* GridCartItemComponent */}
-            {/* <FlatList
+            {isShowDetail && <FlatList
                 keyExtractor={(item, index) => index.toString()}
-                data={Object.keys(Items)}
+                data={Object.keys(order)}
                 renderItem={({ item }) =>
-                    <GridCartItemComponent
-                        cartItem={Items}
-                        cId={item}
+                    <GridOrderItemComponent
+                        cartItem={order}
                     />
                 }
-            /> */}
+            />}
         </View>
     );
 };

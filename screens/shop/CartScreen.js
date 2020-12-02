@@ -31,7 +31,7 @@ const CartScreen = ({ navigation }) => {
                             <TouchableOpacity onPress={() => {
                                 navigation.navigate("Order", {totalAmount : totalAmount, orderDate : orderDate});
                                 dispatch({type:"EMPTY_ITEM"});
-                                dispatch({type:"ADD_ORDER", order : Items});
+                                dispatch({type:"ADD_ORDER", order : Items, totalAmount : totalAmount,});
                                 
                             }}>
                                 <Text style={{ color: "#ff9800", fontWeight: 'bold' }}>Order Now</Text>

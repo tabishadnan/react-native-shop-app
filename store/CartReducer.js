@@ -16,7 +16,7 @@ const CartReducer = (state = initialState, action) => {
                 // already have the item in the cart
                 updatedOrNewCartItem = {
                     qty: state.items[addedProduct.id].qty + 1,
-                    price: prodPrice,
+                    price: state.items[addedProduct.id].price + prodPrice,
                     title: prodTitle,
                     sum: state.items[addedProduct.id].price + prodPrice,
                 }
