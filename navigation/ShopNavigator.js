@@ -6,6 +6,7 @@ import ProductDetailScreen from '../screens/shop/ProductDetailScreen';
 import { View } from 'react-native';
 import CartScreen from '../screens/shop/CartScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import OrdersScreen from '../screens/shop/OrdersScreen';
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,17 @@ const ShopNavigator = () => {
                     }}
                     name="Cart"
                     component={CartScreen}
+                />
+                <Stack.Screen
+                    options={{
+                        title: "Your Orders",
+                        headerStyle: {
+                            backgroundColor: '#d12c5c',
+                        },
+                        headerTintColor: "#ffffff",
+                    }}
+                    name="Order"
+                    component={OrdersScreen}
                 />
             </Stack.Navigator>
         </NavigationContainer>

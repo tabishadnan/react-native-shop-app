@@ -1,25 +1,39 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import GridCartItemComponent from '../../components/GridCartItemComponent';
+import Moment from 'moment';
 
 const CartScreen = ({ navigation }) => {
 
-    const cartItemInfo = useSelector(state => state.cartreducer); 
+    const cartItemInfo = useSelector(state => state.cartreducer);
+
+    const Items = cartItemInfo.items;
+
+    const totalAmount = cartItemInfo.totalAmount;
+
+    const orderDate = Moment().format("MMM / Do / YY");
+
+    const dispatch = useDispatch();
 
     return (
         <View>
             {/* Show Total Amount */}
             <View style={styles.container}>
-                {cartItemInfo.items.length > 0 ?
+                {Object.keys(cartItemInfo.items).length > 0 ?
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', }}>
                             <Text style={{ fontWeight: 'bold' }}>Total: </Text>
-                            <Text style={{ color: "#d12c5c", fontWeight: 'bold' }}>${cartItemInfo.totalAmount}</Text>
+                            <Text style={{ color: "#d12c5c", fontWeight: 'bold' }}>${totalAmount}</Text>
                         </View>
                         <View>
-                            <TouchableOpacity onPress={() => navigation.navigate("All Products")}>
+                            <TouchableOpacity onPress={() => {
+                                navigation.navigate("Order", {totalAmount : totalAmount, orderDate : orderDate});
+                                dispatch({type:"EMPTY_ITEM"});
+                                dispatch({type:"ADD_ORDER", order : Items});
+                                
+                            }}>
                                 <Text style={{ color: "#ff9800", fontWeight: 'bold' }}>Order Now</Text>
                             </TouchableOpacity>
                         </View>
@@ -30,15 +44,14 @@ const CartScreen = ({ navigation }) => {
 
             {/* GridCartItemComponent */}
             <FlatList
-                data={cartItemInfo.items}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
+                data={Object.keys(Items)}
+                renderItem={({ item }) =>
                     <GridCartItemComponent
-                        cartItem={item}
-                        quantity={cartItemInfo.quantity}
-                        navigation={navigation}
+                        cartItem={Items}
+                        cId={item}
                     />
-                )}
+                }
             />
         </View>
     );
