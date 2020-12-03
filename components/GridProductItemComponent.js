@@ -23,7 +23,10 @@ const GridProductItemComponent = ({ navigation, product }) => {
                 </Text>
                 <View style={styles.btncontainer}>
                     <Button title="VIEW DETAILS" color="#d12c5c" onPress={() => navigation.navigate("Product Detail", product)} />
-                    <Button title="TO CART" color="#d12c5c" onPress={() => dispatch({type:"ADD_TO_CART", product})} />
+                    <Button title="TO CART" color="#d12c5c" onPress={() => {
+                        dispatch({type:"ADD_TO_CART", product});
+                        navigation.navigate("Cart");
+                    }} />
                 </View>
             </View>
         </TouchableOpacity>
