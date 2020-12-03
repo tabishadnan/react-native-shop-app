@@ -1,19 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text, } from 'react-native';
-import { useSelector } from 'react-redux';
 
-const GridOrderItemComponent = ({ navigation, cartItem}) => {
-
-    const orderId = useSelector(state => state.orderreducer.orderId);
+const GridOrderItemComponent = ({ navigation, cartItem, cId}) => {
 
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', }}>
-    <Text style={{ fontWeight: 'bold', marginRight:5, }}>{cartItem[orderId].qty}</Text>
-                <Text style={{ fontWeight: 'bold' }}>{cartItem[orderId].title}</Text>
+    <Text style={{ fontWeight: 'bold', marginRight:5, }}>{cartItem[cId].qty}</Text>
+                <Text style={{ fontWeight: 'bold' }}>{cartItem[cId].title}</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: "#000000", fontWeight: 'bold', marginHorizontal: 10, }}>{cartItem[orderId].sum}</Text>
+                <Text style={{ color: "#000000", fontWeight: 'bold', marginHorizontal: 10, }}>{cartItem[cId].sum.toFixed(2)}</Text>
             </View>
         </View>
     );

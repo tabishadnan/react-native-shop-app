@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text, } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const GridCartItemComponent = ({ navigation, cartItem, cId}) => {
 
     const orderId = useSelector(state => state.orderreducer.orderId = cId);
+
+    const dispatch = useDispatch();
 
     return (
         <View style={styles.container} onLoad>
@@ -14,7 +16,7 @@ const GridCartItemComponent = ({ navigation, cartItem, cId}) => {
                 <Text style={{ fontWeight: 'bold' }}>{cartItem[cId].title}</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ color: "#000000", fontWeight: 'bold', marginHorizontal: 10, }}>{cartItem[cId].sum}</Text>
+                <Text style={{ color: "#000000", fontWeight: 'bold', marginHorizontal: 10, }}>{cartItem[cId].sum.toFixed(2)}</Text>
                 <Icon name="trash"
                     size={22}
                     color="#d12c5c"

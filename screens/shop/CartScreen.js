@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import GridCartItemComponent from '../../components/GridCartItemComponent';
-import Moment from 'moment';
 
 const CartScreen = ({ navigation }) => {
 
@@ -13,8 +12,6 @@ const CartScreen = ({ navigation }) => {
 
     const totalAmount = cartItemInfo.totalAmount;
 
-    const orderDate = Moment().format("MMM / Do / YY");
-
     const dispatch = useDispatch();
 
     return (
@@ -23,23 +20,36 @@ const CartScreen = ({ navigation }) => {
             <View style={styles.container}>
                 {Object.keys(cartItemInfo.items).length > 0 ?
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row', }}>
+                        <View style={{ flexDirection: 'row', padding: 7 }}>
                             <Text style={{ fontWeight: 'bold' }}>Total: </Text>
-                            <Text style={{ color: "#d12c5c", fontWeight: 'bold' }}>${totalAmount}</Text>
+                            <Text style={{ color: "#d12c5c", fontWeight: 'bold' }}>${totalAmount.toFixed(2)}</Text>
                         </View>
                         <View>
-                            <TouchableOpacity onPress={() => {
-                                navigation.navigate("Order", {totalAmount : totalAmount, orderDate : orderDate});
-                                dispatch({type:"EMPTY_ITEM"});
-                                dispatch({type:"ADD_ORDER", order : Items, totalAmount : totalAmount,});
-                                
-                            }}>
-                                <Text style={{ color: "#ff9800", fontWeight: 'bold' }}>Order Now</Text>
+                            <TouchableOpacity
+                                style={{ backgroundColor: "#ff9800", padding: 7 }}
+                                onPress={() => {
+                                    dispatch({ type: "EMPTY_ITEM" });
+                                    dispatch({ type: "ADD_ORDER", order: Items, totalAmount: totalAmount, });
+                                }}>
+                                <Text style={{ color: "#FFF", fontWeight: 'bold', }}>Order Now</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                     :
-                    <Text>There are no more items in your cart</Text>}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row', padding: 7 }}>
+                            <Text style={{ fontWeight: 'bold' }}>Total: </Text>
+                            <Text style={{ color: "#d12c5c", fontWeight: 'bold' }}>$0.00</Text>
+                        </View>
+                        <View>
+                            <TouchableOpacity
+                                style={{ backgroundColor: "#9E9E9E", padding: 7 }}
+                            >
+                                <Text style={{ color: "#FFF", fontWeight: 'bold', }}>Order Now</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                }
             </View>
 
             {/* GridCartItemComponent */}
@@ -63,7 +73,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         margin: 20,
-        padding: 20,
+        padding: 10,
         borderColor: '#9e9e9e54',
         borderWidth: 2,
         borderRadius: 10,

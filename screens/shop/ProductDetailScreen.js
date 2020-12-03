@@ -1,11 +1,14 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 const ProductDetailScreen = ({ navigation, route }) => {
 
     const product = route.params;
 
     const img = { uri: product.img };
+
+    const dispatch = useDispatch();
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -23,7 +26,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
                 }}
             />
             <View style={styles.btncontainer}>
-                <Button title="ADD TO CART" color="#d12c5c" />
+                <Button title="ADD TO CART" color="#d12c5c" onPress={() => dispatch({type:"ADD_TO_CART", product})}/>
             </View>
             <Text style={{ fontSize: 18, textAlign: 'center', marginTop: 10, }}>
                 {product.title}

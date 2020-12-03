@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ProductOverviewScreen from '../screens/shop/ProductOverviewScreen';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen';
@@ -10,65 +9,101 @@ import OrdersScreen from '../screens/shop/OrdersScreen';
 
 const Stack = createStackNavigator();
 
-const ShopNavigator = () => {
+const MainStackNavigator = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Products">
-                <Stack.Screen
-                    options={({ route, navigation }) => ({
-                        headerStyle: {
-                            backgroundColor: '#d12c5c',
-                        },
-                        headerRight: () => (
-                            <View style={{ marginHorizontal: 30 }}>
-                                <Icon name="shopping-cart"
-                                    size={22}
-                                    color="#FFFFFF"
-                                    onPress={() => navigation.navigate('Cart')}
-                                />
-                            </View>
-                        ),
-                        headerTintColor: "#ffffff",
-                    })}
-                    name="All Products"
-                    component={ProductOverviewScreen}
-                />
-                <Stack.Screen
-                    options={{
-                        title: "Product Detail",
-                        headerStyle: {
-                            backgroundColor: '#d12c5c',
-                        },
-                        headerTintColor: "#ffffff",
-                    }}
-                    name="Product Detail"
-                    component={ProductDetailScreen}
-                />
-                <Stack.Screen
-                    options={{
-                        title: "Cart",
-                        headerStyle: {
-                            backgroundColor: '#d12c5c',
-                        },
-                        headerTintColor: "#ffffff",
-                    }}
-                    name="Cart"
-                    component={CartScreen}
-                />
-                <Stack.Screen
-                    options={{
-                        title: "Your Orders",
-                        headerStyle: {
-                            backgroundColor: '#d12c5c',
-                        },
-                        headerTintColor: "#ffffff",
-                    }}
-                    name="Order"
-                    component={OrdersScreen}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Stack.Navigator>
+        <Stack.Screen
+            options={({ route, navigation }) => ({
+                title: "All Product",
+                headerTitleStyle : {
+                    textAlign:"center",
+                },
+                headerStyle: {
+                    backgroundColor: '#d12c5c',
+                },
+                headerLeft: () => (
+                    <View style={{ paddingLeft: 30 }}>
+                        <Icon name="bars"
+                            size={22}
+                            color="#FFFFFF"
+                            onPress={() => navigation.openDrawer()}
+                        />
+                    </View>
+                ),
+                headerRight: () => (
+                    <View style={{ paddingRight: 30 }}>
+                        <Icon name="shopping-cart"
+                            size={22}
+                            color="#FFFFFF"
+                            onPress={() => navigation.navigate('Cart')}
+                        />
+                    </View>
+                ),
+                headerTintColor: "#ffffff",
+            })}
+            name="All Products"
+            component={ProductOverviewScreen}
+        />
+        <Stack.Screen
+            options={({ route, navigation }) => ({
+                title: "Product Detail",
+                headerRight: () => (
+                    <View style={{ paddingRight: 30 }}>
+                        <Icon name="shopping-cart"
+                            size={22}
+                            color="#FFFFFF"
+                            onPress={() => navigation.navigate('Cart')}
+                        />
+                    </View>
+                ),
+                headerStyle: {
+                    backgroundColor: '#d12c5c',
+                },
+                headerTintColor: "#ffffff",
+            })}
+            name="Product Detail"
+            component={ProductDetailScreen}
+        />
+        <Stack.Screen
+            options={{
+                title: "Cart",
+                headerStyle: {
+                    backgroundColor: '#d12c5c',
+                },
+                headerTintColor: "#ffffff",
+            }}
+            name="Cart"
+            component={CartScreen}
+        />
+    </Stack.Navigator>
     );
-};
-
-export default ShopNavigator;
+  }
+  
+  const OrdertStackNavigator = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+            options={({ route, navigation }) => ({
+                title: "Your Orders",
+                headerStyle: {
+                    backgroundColor: '#d12c5c',
+                },
+                headerTintColor: "#ffffff",
+                headerLeft: () => (
+                    <View style={{ paddingLeft: 30 }}>
+                        <Icon name="bars"
+                            size={22}
+                            color="#FFFFFF"
+                            onPress={() => navigation.openDrawer()}
+                        />
+                    </View>
+                ),
+            })}
+            name="Order"
+            component={OrdersScreen}
+        />
+      </Stack.Navigator>
+    );
+  }
+  
+  export { MainStackNavigator, OrdertStackNavigator };
