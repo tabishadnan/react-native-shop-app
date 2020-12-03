@@ -16,7 +16,6 @@ const OrderReducer = (state = initialState, action) => {
             };
 
         case "ADD_ORDER":
-            const order = action.order;
             console.log(order);
             const orderPrice = order[state.orderId].price;
             const orderTitle = order[state.orderId].title;
